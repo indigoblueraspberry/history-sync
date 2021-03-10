@@ -77,8 +77,10 @@ function history_sync_pull() {
         return
     fi
 
-    # Merge
-    cat "$ZSH_HISTORY_FILE" "$ZSH_HISTORY_FILE_DECRYPT_NAME" | awk '/:[0-9]/ { if(s) { print s } s=$0 } !/:[0-9]/ { s=s"\n"$0 } END { print s }' | LC_ALL=C sort -u > "$ZSH_HISTORY_FILE"
+    # Don't Merge
+    # cat "$ZSH_HISTORY_FILE" "$ZSH_HISTORY_FILE_DECRYPT_NAME" | awk '/:[0-9]/ { if(s) { print s } s=$0 } !/:[0-9]/ { s=s"\n"$0 } END { print s }' | LC_ALL=C sort -u > "$ZSH_HISTORY_FILE"
+    # Overwrite .zsh_history
+    cat "$ZSH_HISTORY_FILE_DECRYPT_NAME" > "$ZSH_HISTORY_FILE"
     rm  "$ZSH_HISTORY_FILE_DECRYPT_NAME"
     cd  "$DIR"
 }
